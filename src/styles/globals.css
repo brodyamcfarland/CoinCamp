@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .headerButton {
+        @apply border border-gray-900 rounded-full h-7 w-7 p-1 hover:bg-white/10 cursor-pointer hover:rotate-90 duration-500 ease-in-out;
+    }
+}
