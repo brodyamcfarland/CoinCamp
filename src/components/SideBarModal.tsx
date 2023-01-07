@@ -1,12 +1,28 @@
-import React from "react";
+import Link from "next/link";
 
 const SideBarModal = () => {
     return (
-        <div className="absolute flex flex-col top-12 border border-gray-900 px-10 py-3 bg-black/40 gap-3 backdrop-blur-lg">
-            <p className="hover:bg-white/5 py-2 px-2">Home</p>
-            <p className="hover:bg-white/5 py-2 px-2">Create A Fund</p>
-            <p className="hover:bg-white/5 py-2 px-2">Trending</p>
-            <p className="hover:bg-white/5 py-2 px-2">About</p>
+        <div className="absolute flex flex-col top-12 min-w-fit border border-gray-900 bg-black/40 backdrop-blur-lg tracking-widest">
+            <Link href="/">
+                <p className="hover:bg-white/5 py-4 duration-500 ease-in-out px-5 border-b border-gray-900 uppercase text-sm">
+                    Home
+                </p>
+            </Link>
+            <Link href="/create">
+                <p className="hover:bg-white/5 py-4 duration-500 ease-in-out px-5 border-b border-gray-900 uppercase text-sm">
+                    Create Fund
+                </p>
+            </Link>
+            <Link href="/search/trending">
+                <p className="hover:bg-white/5 py-4 duration-500 ease-in-out px-5 border-b border-gray-900 uppercase text-sm">
+                    Trending
+                </p>
+            </Link>
+            <Link href="/about">
+                <p className="hover:bg-white/5 py-4 duration-500 ease-in-out px-5 border-b border-gray-900 uppercase text-sm">
+                    About
+                </p>
+            </Link>
         </div>
     );
 };

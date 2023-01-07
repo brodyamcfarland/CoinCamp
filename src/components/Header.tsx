@@ -6,6 +6,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import Image from "next/image";
 import SideBarModal from "./SideBarModal";
+import Link from "next/link";
 
 const Header = () => {
     const [modalEnabled, setModalEnabled] = useState<boolean>(false);
@@ -25,24 +26,28 @@ const Header = () => {
     };
 
     return (
-        <header className="flex flex-row bg-black/40 h-12 py-1 px-2 md:px-10 lg:px-36 items-center border-b border-gray-900 justify-between">
+        <header className="flex flex-row bg-black/40 h-12 py-1 px-2 md:px-10 lg:px-48 xl:px-80 items-center border-b border-gray-900 justify-between select-none">
             <div className="flex items-center gap-6">
                 <FaBars
                     onClick={() => setModalEnabled(!modalEnabled)}
                     className="headerButton"
                 />
-                <p className="text-sm tracking-widest">COIN CAMP</p>
+                <Link href="/">
+                    <p className="text-sm tracking-widest hover:text-gray-500 duration-500 select-none">
+                        COIN CAMP
+                    </p>
+                </Link>
             </div>
             <form
                 onSubmit={(e) => search(e)}
-                className="hidden sm:flex items-center rounded-xl border border-gray-900 divide-x-[1px] divide-gray-900 hover:border-gray-600 hover:divide-gray-600 duration-300"
+                className="hidden sm:flex items-center lg:w-96 rounded-xl h-9 border border-gray-900 divide-x-[1px] divide-gray-900 hover:border-gray-600 hover:divide-gray-600 duration-300"
             >
                 <button type="submit" className="cursor-pointer">
                     <BiSearch className="h-full w-4 mr-2 ml-[8px] cursor-pointer" />
                 </button>
                 <input
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="bg-black rounded-r-xl focus:outline-none focus:bg-white/10 duration-500 px-2"
+                    className="bg-transparent rounded-r-xl w-full focus:outline-none focus:bg-gradient-to-r from-white/10 to-transparent duration-500 ease-in-out h-[35px] px-2"
                     type="text"
                 />
             </form>
