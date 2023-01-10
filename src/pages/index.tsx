@@ -16,7 +16,7 @@ const Home: NextPage = () => {
                 <title>Coin Camp: Decentralized Crowdfunding</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <body className="flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-5 max-w-6xl mx-auto p-10 text-center items-center justify-center tracking-wide">
+            <div className="flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-5 max-w-6xl mx-auto p-10 text-center items-center justify-center tracking-wide">
                 <Image
                     src={"/Logo.png"}
                     width={120}
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
                     clicking the sidebar and viewing the Trending Page or
                     entering a search in the search bar in the header.
                 </p>
-                <div className="flex flex-row pt-4 gap-5">
+                <div className="flex flex-row pt-10 gap-5">
                     <Link
                         href="/create"
                         className="flex flex-row border items-center gap-2 border-gray-900 px-2 py-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/50 duration-300 ease-in-out"
@@ -73,7 +73,7 @@ const Home: NextPage = () => {
                         <p>More Info</p>
                     </Link>
                 </div>
-            </body>
+            </div>
         </Layout>
     );
 };

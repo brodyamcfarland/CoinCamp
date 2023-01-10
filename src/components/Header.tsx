@@ -53,7 +53,7 @@ const Header = () => {
             </form>
             <div>
                 {address ? (
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 w-[180px] justify-end">
                         <button
                             onClick={disconnect}
                             className="hover:text-white duration-300 text-sm tracking-widest flex flex-row gap-2 items-center justify-center"
@@ -68,7 +68,6 @@ const Header = () => {
                             alt="Avatar"
                             className="h-7 w-7 rounded-full border border-gray-900 object-cover"
                         />
-                        <p>{}</p>
                     </div>
                 ) : (
                     <div className="flex items-center gap-3">
