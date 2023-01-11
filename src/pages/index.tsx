@@ -8,6 +8,7 @@ import {
     AiOutlinePlusCircle,
     AiFillInfoCircle,
 } from "react-icons/ai";
+import { FaBars } from "react-icons/fa";
 
 const Home: NextPage = () => {
     return (
@@ -40,9 +41,9 @@ const Home: NextPage = () => {
                 </p>
                 <p className="text-gray-400 pt-10 text-sm lg:px-20 text-left">
                     To get started, click on "CONNECT WALLET" while connected to
-                    the Polygon - Mumbai Test Network. Start searching by
-                    clicking the sidebar and viewing the Trending Page or
-                    entering a search in the search bar in the header.
+                    the Polygon - Mumbai Test Network. Start searching by using
+                    the search bar or click on the navigation sidebar{" "}
+                    {<FaBars className="inline-block mb-[3px]" />}.
                 </p>
                 <div className="flex flex-row pt-10 gap-5">
                     <Link

@@ -1,102 +1,129 @@
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.7;
 
-// This smart contract allows users to create crowdfunding campaigns and collect
-// funds when the campaign's time period expires.
+interface IERC20 {
+    function transfer(address, uint) external returns (bool);
 
-// Our contract will store a mapping of campaign details, including the campaign's
-// creator, duration, goal, and current amount raised.
+    function transferFrom(
+        address,
+        address,
+        uint
+    ) external returns (bool);
+}
 
-contract Crowdfunding {
-    // Mapping of campaign details
-    mapping (uint => Campaign) public campaigns;
-
-    // Struct to represent a crowdfunding campaign
+contract CrowdFund {
     struct Campaign {
-        address creator;    // Creator of the campaign
-        uint duration;      // Duration of the campaign, in seconds
-        uint goal;          // Funding goal, in wei
-        uint amountRaised;  // Amount of funds raised, in wei
-        bool ended;         // Whether the campaign has ended
-        uint creationTime;  // Timestamp of when the campaign was created
+        address creator;
+        uint goal;
+        uint pledged;
+        uint startAt;
+        uint endAt;
+        bool claimed;
     }
 
-    // Event for when a campaign is created
-    event NewCampaign(uint campaignID);
+    IERC20 public immutable token;
+    uint public count;
+    uint public maxDuration;
+    mapping(uint => Campaign) public campaigns;
+    mapping(uint => mapping(address => uint)) public pledgedAmount;
 
-    // Event for when a campaign reaches its funding goal
-    event CampaignSuccess(uint campaignID);
+    event Launch(
+        uint id,
+        address indexed creator,
+        uint goal,
+        uint32 startAt,
+        uint32 endAt
+    );
+    event Cancel(uint id);
+    event Pledge(uint indexed id, address indexed caller, uint amount);
+    event Unpledge(uint indexed id, address indexed caller, uint amount);
+    event Claim(uint id);
+    event Refund(uint id, address indexed caller, uint amount);
 
-    // Event for when a campaign's time period expires without reaching its goal
-    event CampaignFailure(uint campaignID);
-
-    // Function to create a new campaign
-    function createCampaign(uint duration, uint goal) public {
-        // Create a new campaign and assign a unique ID to it
-        uint campaignID = campaigns.length++;
-
-        // Initialize the campaign with the provided details and the current time
-        campaigns[campaignID] = Campaign(msg.sender, duration, goal, 0, false, now);
-
-        // Emit an event to signal the creation of the new campaign
-        emit NewCampaign(campaignID);
+    constructor(address _token, uint _maxDuration) {
+        token = IERC20(_token);
+        maxDuration = _maxDuration;
     }
 
-    // Function to contribute to an existing campaign
-    function contribute(uint campaignID) public payable {
-        // Retrieve the campaign details
-        Campaign storage campaign = campaigns[campaignID];
+    function launch(uint _goal, uint32 _startAt, uint32 _endAt) external {
+        require(_startAt >= block.timestamp,"Start time is less than current Block Timestamp");
+        require(_endAt > _startAt,"End time is less than Start time");
+        require(_endAt <= block.timestamp + maxDuration, "End time exceeds the maximum Duration");
 
-        // Check that the campaign exists and is still active
-        require(!campaign.ended, "This campaign has already ended.");
+        count += 1;
+        campaigns[count] = Campaign({
+            creator: msg.sender,
+            goal: _goal,
+            pledged: 0,
+            startAt: _startAt,
+            endAt: _endAt,
+            claimed: false
+        });
 
-        // Check that the campaign has not yet reached its goal
-        require(campaign.amountRaised + msg.value < campaign.goal, "This campaign has already reached its goal.");
-
-        // Add the contribution to the amount raised for the campaign
-        campaign.amountRaised += msg.value;
-
-        // If the campaign has reached its goal, mark it as ended and emit a success event
-        if (campaign.amountRaised >= campaign.goal) {
-            campaign.ended = true;
-            emit CampaignSuccess(campaignID);
-        }
+        emit Launch(count,msg.sender,_goal,_startAt,_endAt);
     }
 
-    // Function to retrieve the funds raised by a campaign
-    function retrieveFunds(uint campaignID) public {
-        // Retrieve the campaign details
-        Campaign storage campaign = campaigns[campaignID];
+    function cancel(uint _id) external {
+        Campaign memory campaign = campaigns[_id];
+        require(campaign.creator == msg.sender, "You did not create this Campaign");
+        require(block.timestamp < campaign.startAt, "Campaign has already started");
 
-        // Check that the campaign exists and is ended
-        require(campaign.ended, "This campaign is still active.");
-
-        // Check that the caller is the creator of the campaign
-        require(msg.sender == campaign.creator, "Only the creator of the campaign can retrieve the funds.");
-
-        // Transfer the funds to the creator
-        msg.sender.transfer(campaign.amountRaised);
+        delete campaigns[_id];
+        emit Cancel(_id);
     }
 
-    // Function to end a campaign if its time period has expired
-    function checkCampaigns() public {
-        // Iterate through all campaigns
-    for (uint i = 0; i < campaigns.length; i++) {
-        // Retrieve the campaign details
-        Campaign storage campaign = campaigns[i];
+    function pledge(uint _id, uint _amount) external {
+        Campaign storage campaign = campaigns[_id];
+        require(block.timestamp >= campaign.startAt, "Campaign has not Started yet");
+        require(block.timestamp <= campaign.endAt, "Campaign has already ended");
+        campaign.pledged += _amount;
+        pledgedAmount[_id][msg.sender] += _amount;
+        token.transferFrom(msg.sender, address(this), _amount);
 
-        // Check if the campaign's time period has expired
-        if (!campaign.ended && now >= campaign.duration + campaign.creationTime) {
-            // Mark the campaign as ended
-            campaign.ended = true;
-
-            // If the campaign has reached its goal, emit a success event
-            if (campaign.amountRaised >= campaign.goal) {
-                emit CampaignSuccess(i);
-            }
-            // Otherwise, emit a failure event
-            else {
-                emit CampaignFailure(i);
-            }
-        }
+        emit Pledge(_id, msg.sender, _amount);
     }
+
+    function unPledge(uint _id,uint _amount) external {
+        Campaign storage campaign = campaigns[_id];
+        require(block.timestamp >= campaign.startAt, "Campaign has not Started yet");
+        require(block.timestamp <= campaign.endAt, "Campaign has already ended");
+        require(pledgedAmount[_id][msg.sender] >= _amount,"You do not have enough tokens Pledged to withraw");
+
+        campaign.pledged -= _amount;
+        pledgedAmount[_id][msg.sender] -= _amount;
+        token.transfer(msg.sender, _amount);
+
+        emit Unpledge(_id, msg.sender, _amount);
+    }
+
+    function claim(uint _id) external {
+        Campaign storage campaign = campaigns[_id];
+        require(campaign.creator == msg.sender, "You did not create this Campaign");
+        require(block.timestamp > campaign.endAt, "Campaign has not ended");
+        require(campaign.pledged >= campaign.goal, "Campaign did not succed");
+        require(!campaign.claimed, "claimed");
+
+        campaign.claimed = true;
+        token.transfer(campaign.creator, campaign.pledged);
+
+        emit Claim(_id);
+    }
+
+    function refund(uint _id) external {
+        Campaign memory campaign = campaigns[_id];
+        require(block.timestamp > campaign.endAt, "not ended");
+        require(campaign.pledged < campaign.goal, "You cannot Withdraw, Campaign has succeeded");
+
+        uint bal = pledgedAmount[_id][msg.sender];
+        pledgedAmount[_id][msg.sender] = 0;
+        token.transfer(msg.sender, bal);
+
+        emit Refund(_id, msg.sender, bal);
+    }
+
+    function getTimestamp() public view returns (uint) {
+        return block.timestamp;
+    }
+
+
 }
