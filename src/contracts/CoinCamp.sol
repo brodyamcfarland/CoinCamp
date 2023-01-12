@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-contract CrowdFunding {
+contract CoinCamp {
     struct Campaign {
         address owner;
         string title;
@@ -39,8 +39,9 @@ contract CrowdFunding {
     function donateToCampaign(uint256 _id) public payable {
         uint256 amount = msg.value;
         Campaign storage campaign = campaigns[_id];
-        require(campaign.active == true, "The Donation Period has ended");
-        require(block.timestamp < campaign.deadline, "The Deadline has passed.");
+        require(campaign.active == true, "The Funding Period has ended");
+        require(block.timestamp < campaign.deadline, "The Funding Deadline has elapsed.");
+        require(campaign.amountCollected <= campaign.target, "The Funding Target has been reached or exceeded.");
 
         campaign.donators.push(msg.sender);
         campaign.donations.push(amount);
@@ -50,7 +51,7 @@ contract CrowdFunding {
         if(sent) {
             campaign.amountCollected = campaign.amountCollected + amount;
         }
-        if(campaign.amountCollected > campaign.target) {
+        if(campaign.amountCollected >= campaign.target) {
             campaign.active = false;
         }
     }
@@ -73,5 +74,12 @@ contract CrowdFunding {
 
     function getTime() public view returns (uint) {
         return uint(block.timestamp);
+    }
+
+    function getTimeLeft(uint256 _id) public view returns (uint) {
+        Campaign storage campaign = campaigns[_id];
+        require(campaign.active == true, "The Funding Period has ended");
+        require(block.timestamp < campaign.deadline, "The Funding Deadline has elapsed.");
+        return uint(campaign.deadline - block.timestamp);
     }
 }

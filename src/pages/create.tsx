@@ -1,8 +1,33 @@
 import React from "react";
 import Layout from "../components/Layout";
 import Head from "next/head";
+import network from "../utils/network";
+import {
+    useAddress,
+    useContract,
+    useNetwork,
+    useNetworkMismatch,
+} from "@thirdweb-dev/react";
+import { NATIVE_TOKENS, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+import contractAddress from "../contracts/contract";
+
+// Solidity Time is in seconds
+// 1 Week = 604800
+// 2 Week = 1209600
+// 3 Week = 1814400
+// 1 Month = 2630000
+// 1 Year = 31536000
+// ETH to WEI
+// 1 ETH = 1000000000000000000 WEI
 
 const create = () => {
+    const address = useAddress();
+    const router = useRouter();
+    const { contract } = useContract(contractAddress);
+    const networkMismatch = useNetworkMismatch();
+    const [, switchNetwork] = useNetwork();
     return (
         <Layout>
             <Head>
