@@ -8,14 +8,19 @@ const SideBarModal = () => {
                     Home
                 </p>
             </Link>
+            <Link href="/dashboard">
+                <p className="hover:bg-white/5 py-4 duration-500 ease-in-out px-5 border-b border-gray-900 uppercase text-sm">
+                    Dashboard
+                </p>
+            </Link>
             <Link href="/create">
                 <p className="hover:bg-white/5 py-4 duration-500 ease-in-out px-5 border-b border-gray-900 uppercase text-sm">
                     Create Fund
                 </p>
             </Link>
-            <Link href="/search/trending">
+            <Link href="/search/discover">
                 <p className="hover:bg-white/5 py-4 duration-500 ease-in-out px-5 border-b border-gray-900 uppercase text-sm">
-                    Trending
+                    Discover
                 </p>
             </Link>
             <Link href="/about">

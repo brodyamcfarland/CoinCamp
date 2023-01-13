@@ -38,7 +38,6 @@ const create = () => {
     const [description, setDescription] = useState<string>("");
     const [fundTarget, setFundTarget] = useState<number>(0);
     const [endTimeInSeconds, setEndTimeInSeconds] = useState<number>(0);
-    const [currentBlockTime, setCurrentBlockTime] = useState<number>(0);
 
     // Contract Connection and Main Functions
     const { contract } = useContract(contractAddress);
@@ -53,9 +52,32 @@ const create = () => {
 
     const createFund = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let endTimeCalulation = Number(blockTime) + Number(endTimeInSeconds);
-        console.log(endTimeCalulation);
+
+        if (fundAddress.length !== 42) {
+            toast.error(
+                "Please Enter a Valid Address (42 Characters starting with '0x...')"
+            );
+            return;
+        }
+        if (title.length < 1) {
+            toast.error("Please enter a title.");
+            return;
+        }
+        if (description.length < 1) {
+            toast.error("Please enter a description.");
+            return;
+        }
+        if (!fundTarget) {
+            toast.error("Please enter a goal in MATIC.");
+            return;
+        }
+        if (!endTimeInSeconds) {
+            toast.error("Please pick a duration for the fund.");
+            return;
+        }
+
         // Need Validation Rules for all the inputs here
+        let endTimeCalulation = Number(blockTime) + Number(endTimeInSeconds);
         try {
             const data = await createCampaign([
                 fundAddress,
@@ -64,9 +86,16 @@ const create = () => {
                 fundTarget,
                 endTimeCalulation,
             ]);
-            console.info("contract call successs", data);
+            console.info("Fund has successfully been created.", data);
+            toast.success("Your Fund has successfully been created!");
         } catch (err) {
-            console.error("contract call failure", err);
+            console.error(
+                "Something went wrong! Please check parameters and try again. Error: ",
+                err
+            );
+            toast.error(
+                "Something went wrong! Please check inputs and try again."
+            );
         }
     };
 
@@ -93,13 +122,18 @@ const create = () => {
         setEndTimeInSeconds(Number(e.target.value));
     };
 
+    const handleAddAddress = (e: any) => {
+        e.preventDefault();
+        setFundAddress(String(address));
+    };
+
     // Use Effect to prove form updates in console
     useEffect(() => {
-        console.log(endTimeInSeconds);
-        console.log(fundTarget);
-        console.log(description);
-        console.log(title);
-        console.log(fundAddress);
+        console.log("End Time Set to:" + " " + endTimeInSeconds);
+        console.log("Fund Target Set to:" + " " + fundTarget);
+        console.log("Description Set to:" + " " + description);
+        console.log("Title Set to:" + " " + title);
+        console.log("Address Set to:" + " " + fundAddress);
     }, [endTimeInSeconds, fundTarget, description, title, fundAddress]);
 
     return (
@@ -124,13 +158,25 @@ const create = () => {
                         <label className="pl-2 text-xs">
                             Beneficiary Address
                         </label>
-                        <input
-                            onChange={handleAddressChange}
-                            className="inputSmallerDevices"
-                            type="text"
-                            maxLength={42}
-                            minLength={42}
-                        />
+                        <div className="flex">
+                            <input
+                                onChange={handleAddressChange}
+                                className="inputSmallerDevices flex-1"
+                                type="text"
+                                placeholder="0x0000000000000000000000000000000000000000"
+                                value={fundAddress}
+                                maxLength={42}
+                                minLength={42}
+                                id="addressValue"
+                            />
+                            <button
+                                onClick={handleAddAddress}
+                                className="px-2 gap-2 flex items-center justify-center text-xs text-gray-500 border-gray-900 border hover:bg-white/5 bg-transparent duration-300 hover:text-white hover:border-white"
+                            >
+                                <AiOutlinePlusCircle size={18} />
+                                <p>Add Wallet</p>
+                            </button>
+                        </div>
                     </div>
                     <div className="flex flex-col">
                         <label className="pl-2 text-xs">Title of Fund</label>
@@ -139,6 +185,7 @@ const create = () => {
                             className="inputSmallerDevices"
                             type="text"
                             maxLength={65}
+                            placeholder="..."
                         />
                     </div>
                     <div className="flex flex-col">
@@ -147,6 +194,7 @@ const create = () => {
                             onChange={handleDescriptionChange}
                             className="inputSmallerDevices h-20 resize-none"
                             maxLength={255}
+                            placeholder="..."
                         />
                     </div>
                     <div className="flex flex-col">

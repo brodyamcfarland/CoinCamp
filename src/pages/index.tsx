@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import Image from "next/image";
 import Link from "next/link";
 import {
-    AiFillFire,
+    AiOutlineSearch,
     AiOutlinePlusCircle,
     AiFillInfoCircle,
 } from "react-icons/ai";
@@ -60,9 +60,9 @@ const Home: NextPage = () => {
                         className="flex flex-row border items-center gap-2 border-gray-900 px-2 py-2 rounded-lg bg-orange-500/10 hover:bg-orange-500/50 duration-300 ease-in-out hover:text-white"
                     >
                         <p>
-                            <AiFillFire />
+                            <AiOutlineSearch />
                         </p>
-                        <p>Trending Funds</p>
+                        <p>Discover Funds</p>
                     </Link>
                     <Link
                         href="/about"

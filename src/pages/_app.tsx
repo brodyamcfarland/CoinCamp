@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps: { ...pageProps } }: AppProps) {
     return (
         <ThirdwebProvider desiredChainId={network}>
             <Component {...pageProps} />
+            <Toaster />
         </ThirdwebProvider>
     );
 }
