@@ -16,6 +16,8 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import contractAddress from "../contracts/contract";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import discover from "./search/discover";
+import { read } from "fs";
 
 const create = () => {
     // Hooks
@@ -30,6 +32,7 @@ const create = () => {
     const [description, setDescription] = useState<string>("");
     const [fundTarget, setFundTarget] = useState<number>(0);
     const [endTimeInSeconds, setEndTimeInSeconds] = useState<number>(0);
+    const [MATICPrice, setMATICPrice] = useState<any>([]);
 
     // Contract Connection and Main Functions
     const { contract } = useContract(contractAddress);
@@ -41,10 +44,26 @@ const create = () => {
         contract,
         "getTime"
     );
+    const { ["matic-network"]: maticNetwork } = MATICPrice;
+
+    const loadMATICPrice = () => {
+        fetch(
+            "https://api.coingecko.com/api/v3/simple/price?ids=matic-network&vs_currencies=USD"
+        )
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Failed to fetch the data");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setMATICPrice(data);
+            })
+            .catch((error) => console.log(error));
+    };
 
     const createFund = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         if (fundAddress.length !== 42) {
             toast.error(
                 "Please Enter a Valid Address (42 Characters starting with '0x...')"
@@ -121,14 +140,9 @@ const create = () => {
         }
     };
 
-    // Use Effect to prove form updates in console
     useEffect(() => {
-        console.log("End Time Set to:" + " " + endTimeInSeconds);
-        console.log("Fund Target Set to:" + " " + fundTarget);
-        console.log("Description Set to:" + " " + description);
-        console.log("Title Set to:" + " " + title);
-        console.log("Address Set to:" + " " + fundAddress);
-    }, [endTimeInSeconds, fundTarget, description, title, fundAddress]);
+        loadMATICPrice();
+    }, []);
 
     return (
         <Layout>
@@ -212,6 +226,16 @@ const create = () => {
                                 <p className="text-xs text-gray-500">MATIC</p>
                             </div>
                         </div>
+                        {fundTarget ? (
+                            <p className="text-xs text-right pr-2 pt-1 text-gray-500">
+                                {fundTarget} MATIC = $
+                                {(
+                                    MATICPrice["matic-network"].usd *
+                                    Number(fundTarget)
+                                ).toFixed(2)}{" "}
+                                USD
+                            </p>
+                        ) : null}
                     </div>
                     <div className="flex flex-col gap-2 border border-gray-900 p-4 bg-gradient-to-br from-white/5 to-transparent">
                         <label className="text-xs font-bold">Duration</label>
