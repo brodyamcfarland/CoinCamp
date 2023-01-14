@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import Head from "next/head";
 import network from "../utils/network";
+import Image from "next/image";
 import {
     useAddress,
     useContract,
@@ -10,20 +11,11 @@ import {
     useNetwork,
     useNetworkMismatch,
 } from "@thirdweb-dev/react";
-import { NATIVE_TOKENS, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk";
+import { NATIVE_TOKENS, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk"; // Might need this
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import contractAddress from "../contracts/contract";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-
-// Solidity Time is in seconds
-// 1 Week = 604800
-// 2 Week = 1209600
-// 3 Week = 1814400
-// 1 Month = 2630000
-// 1 Year = 31536000
-// ETH to WEI
-// 1 ETH = 1000000000000000000 WEI
 
 const create = () => {
     // Hooks
@@ -75,8 +67,6 @@ const create = () => {
             toast.error("Please pick a duration for the fund.");
             return;
         }
-
-        // Need Validation Rules for all the inputs here
         let endTimeCalulation = Number(blockTime) + Number(endTimeInSeconds);
         try {
             const data = await createCampaign([
@@ -124,7 +114,11 @@ const create = () => {
 
     const handleAddAddress = (e: any) => {
         e.preventDefault();
-        setFundAddress(String(address));
+        if (address) {
+            setFundAddress(String(address));
+        } else {
+            toast.error("Please Connect Your Wallet");
+        }
     };
 
     // Use Effect to prove form updates in console
@@ -199,13 +193,25 @@ const create = () => {
                     </div>
                     <div className="flex flex-col">
                         <label className="pl-2 text-xs">Goal</label>
-                        <input
-                            className="inputSmallerDevices"
-                            type="text"
-                            placeholder="0.1 MATIC"
-                            onChange={handleGoalChange}
-                            maxLength={15}
-                        />
+                        <div className="flex relative items-center">
+                            <input
+                                className="inputSmallerDevices flex-1"
+                                type="text"
+                                placeholder="0.1 MATIC"
+                                onChange={handleGoalChange}
+                                maxLength={15}
+                            />
+                            <div className="flex gap-1 items-center absolute right-4">
+                                <Image
+                                    src={"/polygonLogo.png"}
+                                    width={100}
+                                    height={100}
+                                    alt="Avatar"
+                                    className="h-5 w-5 rounded-full border border-gray-900 object-cover"
+                                />
+                                <p className="text-xs text-gray-500">MATIC</p>
+                            </div>
+                        </div>
                     </div>
                     <div className="flex flex-col gap-2 border border-gray-900 p-4 bg-gradient-to-br from-white/5 to-transparent">
                         <label className="text-xs font-bold">Duration</label>
