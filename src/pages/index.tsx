@@ -56,7 +56,7 @@ const Home: NextPage = () => {
                         <p>Create Fund</p>
                     </Link>
                     <Link
-                        href="/search/trending"
+                        href="/search/discover"
                         className="flex flex-row border items-center gap-2 border-gray-900 px-2 py-2 rounded-lg bg-orange-500/10 hover:bg-orange-500/50 duration-300 ease-in-out hover:text-white"
                     >
                         <p>

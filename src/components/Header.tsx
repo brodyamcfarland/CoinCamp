@@ -33,7 +33,7 @@ const Header = () => {
                     className="headerButton"
                 />
                 <Link href="/">
-                    <p className="text-sm tracking-widest hover:text-gray-500 duration-500 select-none">
+                    <p className="text-xs md:text-sm tracking-widest hover:text-gray-500 duration-500 select-none">
                         COIN CAMP
                     </p>
                 </Link>
@@ -56,7 +56,7 @@ const Header = () => {
                     <div className="flex items-center gap-2 w-[180px] justify-end">
                         <button
                             onClick={disconnect}
-                            className="hover:text-white duration-300 text-sm tracking-widest flex flex-row gap-2 items-center justify-center"
+                            className="hover:text-white duration-300 text-xs md:text-sm tracking-widest flex flex-row gap-2 items-center justify-center"
                         >
                             <FaCircle fill="green" />{" "}
                             {address.slice(0, 5) + "..." + address.slice(-4)}
@@ -73,7 +73,7 @@ const Header = () => {
                     <div className="flex items-center gap-3">
                         <button
                             onClick={connect}
-                            className="hover:text-white duration-300 text-sm tracking-widest"
+                            className="hover:text-white duration-300 text-xs md:text-sm tracking-widest"
                         >
                             CONNECT WALLET
                         </button>
