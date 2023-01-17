@@ -9,7 +9,7 @@ const about = () => {
                 <title>Coin Camp: About</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-5 max-w-6xl mx-auto p-10 text-center items-center justify-center tracking-wide">
+            <div className="flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-2 max-w-6xl mx-auto p-10 text-center items-center justify-center tracking-wide">
                 About Coin Camp
             </div>
         </Layout>

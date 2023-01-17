@@ -13,6 +13,7 @@ import Image from "next/image";
 import { Line } from "rc-progress";
 import { Triangle } from "react-loader-spinner";
 import { AiOutlineCopy, AiOutlinePlusCircle } from "react-icons/ai";
+import { FaCircle } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { ethers } from "ethers";
 
@@ -73,20 +74,21 @@ const discover = () => {
                 <title>Coin Camp: Discover</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-5 max-w-6xl mx-auto p-2 md:p-10 text-center items-center justify-center tracking-wide select-none scrollbar-track-black">
+            <div className="flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-2 max-w-7xl mx-auto p-2 md:p-10 text-center items-center justify-center tracking-wide select-none">
                 <p className="text-lg font-bold uppercase tracking-[0.2rem]">
                     Discover
                 </p>
-                <p className="tracking-wide text-sm text-gray-500 py-10">
+                <button onClick={consoleLog}>Pressss</button>
+                <p className="tracking-wide text-sm text-gray-500 py-8 px-10">
                     Welcome to the future of crowdfunding! Our platform allows
                     you to easily discover and support other users. With low
                     transaction fees and fast processing times, supporting your
                     peers has never been easier.
                 </p>
-                <div className="border border-gray-900 w-full px-3 bg-gradient-to-br from-white/5 to-transparent pb-4">
+                <div className="border border-gray-900 w-full px-3 bg-gradient-to-br from-white/5 to-transparent pb-4 h-max">
                     <p className="tracking-widest text-sm py-2">ACTIVE FUNDS</p>
                     {allFunds ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-y-scroll scrollbar-thin h-max">
                             {allFunds
                                 ?.map((fund: any, i: number) => (
                                     <div
@@ -108,7 +110,7 @@ const discover = () => {
                                             strokeWidth={1}
                                             strokeColor={"#34dd3a"}
                                         />
-                                        <div className="flex text-xs text-left gap-5 py-1">
+                                        <div className="flex items-center text-xs text-left gap-5 py-1">
                                             <div className="flex flex-row items-center">
                                                 <p className="text-gray-600 pr-2">
                                                     RAISED:{" "}
@@ -126,7 +128,7 @@ const discover = () => {
                                                     className="h-4 w-4 rounded-full border border-gray-900 object-cover"
                                                 />
                                             </div>
-                                            <div className="flex flex-row items-center">
+                                            <div className="flex flex-row flex-1 items-center">
                                                 <p className="text-gray-600 pr-2">
                                                     GOAL:{" "}
                                                 </p>
@@ -144,13 +146,9 @@ const discover = () => {
                                                 />
                                             </div>
                                             {fund.active ? (
-                                                <p className="text-emerald-500">
-                                                    ACTIVE
-                                                </p>
+                                                <FaCircle fill="green" />
                                             ) : (
-                                                <p className="text-red-500">
-                                                    CLOSED
-                                                </p>
+                                                <FaCircle fill="red" />
                                             )}
                                         </div>
                                         {fund.active ? (
@@ -176,10 +174,23 @@ const discover = () => {
                                                 )}
                                             </div>
                                         )}
-
+                                        <div className="flex flex-col pt-3">
+                                            <p className="text-[10px] text-gray-500">
+                                                Donators
+                                            </p>
+                                            <div className="flex flex-col h-24 border border-gray-900 overflow-y-auto scrollbar-thin">
+                                                {fund.donators.map(
+                                                    (donator: string) => (
+                                                        <span className="text-[10px] text-gray-500 border border-gray-900">
+                                                            {donator}
+                                                        </span>
+                                                    )
+                                                )}
+                                            </div>
+                                        </div>
                                         <div className="flex flex-col text-center py-1 mt-auto">
                                             <span className="text-[10px] text-gray-500">
-                                                Owner
+                                                Beneficiary
                                             </span>
                                             <div className="flex border border-gray-900 divide-x-[1px] divide-gray-900">
                                                 <p
@@ -241,12 +252,14 @@ const discover = () => {
                                 .reverse()}
                         </div>
                     ) : (
-                        <div className="flex justify-center items-center pt-5 pb-10">
+                        <div className="flex flex-col justify-center items-center pt-5 pb-10">
                             <Triangle />
+                            <span className="py-8 text-emerald-500 animate-pulse tracking-widest">
+                                Loading all Funds...
+                            </span>
                         </div>
                     )}
                 </div>
-                <button onClick={consoleLog}>Test</button>
             </div>
         </Layout>
     );
