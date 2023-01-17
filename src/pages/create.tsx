@@ -92,7 +92,7 @@ const create = () => {
                 fundAddress,
                 title,
                 description,
-                fundTarget,
+                BigInt(fundTarget * 1000000000000000000),
                 endTimeCalulation,
             ]);
             console.info("Fund has successfully been created.", data);

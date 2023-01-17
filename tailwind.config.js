@@ -6,7 +6,17 @@ module.exports = {
         "./app/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            scrollbarTrack: (theme) => ({
+                "background-color": "black",
+            }),
+            scrollbarThumb: (theme) => ({
+                "background-color": "#3d3d3d",
+                "&:hover": {
+                    "background-color": "#1e1e1e",
+                },
+            }),
+        },
     },
-    plugins: [require("@tailwindcss/forms")],
+    plugins: [require("@tailwindcss/forms"), require("tailwind-scrollbar")],
 };

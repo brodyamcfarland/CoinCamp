@@ -17,11 +17,11 @@ interface RenderProps {
 
 const CountDownTimer = ({ index }: Props) => {
     const { contract } = useContract(contractAddress);
-    const { data, isLoading: isLoadingExpiration } = useContractRead(
-        contract,
-        "getTimeLeft",
-        index
-    );
+    const {
+        data,
+        isLoading: isLoadingExpiration,
+        error: timeEnded,
+    } = useContractRead(contract, "getTimeLeft", index);
     const renderer = ({ days, hours, minutes, seconds }: RenderProps) => {
         return (
             <div className="flex flex-row gap-2 divide-x-[1px] divide-gray-900">
@@ -44,12 +44,11 @@ const CountDownTimer = ({ index }: Props) => {
             </div>
         );
     };
-    console.log(new Date(Number(data) * 10000));
 
     return (
         <div>
             {isLoadingExpiration ? (
-                <ThreeDots />
+                <ThreeDots height={14} width={30} />
             ) : (
                 <Countdown
                     date={Date.now() + Number(data) * 1000}
