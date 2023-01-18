@@ -10,7 +10,7 @@ const Layout = ({ children }: Props) => {
     return (
         <div className="flex flex-col bg-gradient-to-tr from-gray-900 to-black min-h-screen text-gray-300">
             <Header />
-            <main className="flex-1 min-h-full">{children}</main>
+            <main className="flex-1">{children}</main>
             <Footer />
         </div>
     );
