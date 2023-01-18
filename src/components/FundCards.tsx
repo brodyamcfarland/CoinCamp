@@ -1,4 +1,4 @@
-import { useContract, useContractRead } from "@thirdweb-dev/react";
+import { useAddress, useContract, useContractRead } from "@thirdweb-dev/react";
 import React, { useEffect, useState, useRef } from "react";
 import contractAddress from "../contracts/contract";
 import { Line } from "rc-progress";
@@ -14,6 +14,7 @@ const FundCards = () => {
     const [allFunds, setAllFunds] = useState<any>([]);
     const [donation, setDonation] = useState<number>(0);
     const { contract } = useContract(contractAddress);
+    const address = useAddress();
     const { data: getCampaigns } = useContractRead(contract, "getCampaigns");
     const textRef = useRef<HTMLParagraphElement>(null);
 
@@ -25,6 +26,10 @@ const FundCards = () => {
         setDonation(Number(e.target.value));
     };
     const sendDonation = async (i: string) => {
+        if (!address) {
+            toast.error("Please connect your wallet.");
+            return;
+        }
         if (!donation || donation === 0) {
             toast.error("Please enter an amount greater than 0.");
             return;

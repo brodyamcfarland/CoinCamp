@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import Head from "next/head";
-import network from "../utils/network";
 import Image from "next/image";
 import {
     useAddress,
@@ -11,19 +10,15 @@ import {
     useNetwork,
     useNetworkMismatch,
 } from "@thirdweb-dev/react";
-import { NATIVE_TOKENS, NATIVE_TOKEN_ADDRESS } from "@thirdweb-dev/sdk"; // Might need this
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import contractAddress from "../contracts/contract";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import discover from "./search/discover";
-import { read } from "fs";
 
 const create = () => {
     // Hooks
     const address = useAddress();
     const router = useRouter();
-    const networkMismatch = useNetworkMismatch();
     const [, switchNetwork] = useNetwork();
 
     // State Variables for Form
@@ -86,6 +81,7 @@ const create = () => {
             toast.error("Please pick a duration for the fund.");
             return;
         }
+        toast.loading("Creating Your Fund...");
         let endTimeCalulation = Number(blockTime) + Number(endTimeInSeconds);
         try {
             const data = await createCampaign([
