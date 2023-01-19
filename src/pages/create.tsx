@@ -146,11 +146,11 @@ const create = () => {
                 <title>Coin Camp: Create Fund</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-2 max-w-6xl mx-auto p-10 text-center items-center justify-center tracking-widest select-none">
+            <div className="flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-2 max-w-7xl mx-auto p-2 py-4 text-center items-center justify-center tracking-wide select-none">
                 <p className="text-lg font-bold uppercase tracking-[0.2rem]">
                     Create a Fund
                 </p>
-                <p className="tracking-wide text-sm text-gray-500 py-10">
+                <p className="tracking-wide text-xs text-gray-500 py-4 px-10">
                     To create a new fund, please make sure your wallet is
                     connected and then fill out the form below.
                 </p>
