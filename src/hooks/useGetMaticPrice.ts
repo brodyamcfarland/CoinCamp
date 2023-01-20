@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 
-const [MATICPrice, setMATICPrice] = useState<any>([]);
-
 const useGetMaticPrice = () => {
+    const [MATICPrice, setMATICPrice] = useState<any>([]);
     useEffect(() => {
         fetch(
             "https://api.coingecko.com/api/v3/simple/price?ids=matic-network&vs_currencies=USD"

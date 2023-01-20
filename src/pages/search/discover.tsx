@@ -1,9 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
 import Layout from "../../components/Layout";
 import Head from "next/head";
-import FundCards from "../../components/FundCards";
+import FundCard from "../../components/FundCard";
+import { useAddress, useContract, useContractRead } from "@thirdweb-dev/react";
+import contractAddress from "../../contracts/contract";
 
 const discover = () => {
+    const [allFunds, setAllFunds] = useState<any>([]);
+    const { contract } = useContract(contractAddress);
+    const { data: getCampaigns } = useContractRead(contract, "getCampaigns");
+
+    useEffect(() => {
+        setAllFunds(getCampaigns);
+    }, [getCampaigns]);
+
     return (
         <Layout>
             <Head>
@@ -20,7 +30,11 @@ const discover = () => {
                     transaction fees and fast processing times, supporting your
                     peers has never been easier.
                 </p>
-                <FundCards />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-y-auto scrollbar-thin h-full md:h-[40rem]">
+                    {allFunds?.map((fund: any, i: number) => (
+                        <FundCard fund={fund} i={i} key={i} />
+                    ))}
+                </div>
             </div>
         </Layout>
     );

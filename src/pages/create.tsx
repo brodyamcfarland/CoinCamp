@@ -81,7 +81,11 @@ const create = () => {
             toast.error("Please pick a duration for the fund.");
             return;
         }
-        toast.loading("Creating Your Fund...");
+        if (!address) {
+            toast.error("Please connect your wallet.");
+            return;
+        }
+        let toastLoading = toast.loading("Creating Your Fund...");
         let endTimeCalulation = Number(blockTime) + Number(endTimeInSeconds);
         try {
             const data = await createCampaign([
@@ -98,8 +102,9 @@ const create = () => {
                 "Something went wrong! Please check parameters and try again. Error: ",
                 err
             );
+            toast.dismiss(toastLoading);
             toast.error(
-                "Something went wrong! Please check inputs and try again."
+                "Transaction Cancelled. Please check inputs and try again."
             );
         }
     };
