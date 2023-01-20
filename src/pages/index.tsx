@@ -42,7 +42,7 @@ const Home: NextPage = () => {
                 <p className="text-gray-400 pt-10 text-sm lg:px-20 text-left">
                     To get started, click on "CONNECT WALLET" while connected to
                     the Polygon - Mumbai Test Network. Start searching by using
-                    the search bar or click on the navigation sidebar{" "}
+                    the search bar or click on the navigation button{" "}
                     {<FaBars className="inline-block mb-[3px]" />}.
                 </p>
                 <div className="flex flex-row pt-10 gap-5">
