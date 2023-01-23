@@ -48,12 +48,18 @@ const CountDownTimer = ({ index }: Props) => {
     return (
         <div>
             {isLoadingExpiration ? (
-                <ThreeDots height={14} width={30} />
+                <ThreeDots height={25} width={30} />
             ) : (
-                <Countdown
-                    date={Date.now() + Number(data) * 1000}
-                    renderer={renderer}
-                />
+                <>
+                    {timeEnded ? (
+                        <p className="text-red-500">Time has expired</p>
+                    ) : (
+                        <Countdown
+                            date={Date.now() + Number(data) * 1000}
+                            renderer={renderer}
+                        />
+                    )}
+                </>
             )}
         </div>
     );

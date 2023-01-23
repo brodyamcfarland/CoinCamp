@@ -16,12 +16,10 @@ import contractAddress from "../contracts/contract";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 const create = () => {
-    // Hooks
     const address = useAddress();
     const router = useRouter();
     const [, switchNetwork] = useNetwork();
 
-    // State Variables for Form
     const [fundAddress, setFundAddress] = useState<string>("");
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
@@ -29,7 +27,6 @@ const create = () => {
     const [endTimeInSeconds, setEndTimeInSeconds] = useState<number>(0);
     const [MATICPrice, setMATICPrice] = useState<any>([]);
 
-    // Contract Connection and Main Functions
     const { contract } = useContract(contractAddress);
     const { mutateAsync: createCampaign, isLoading } = useContractWrite(
         contract,

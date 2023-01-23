@@ -75,7 +75,7 @@ const FundCard = ({ fund, i }: Props) => {
                 strokeColor={"#34dd3a"}
             />
             <div className="flex items-center text-xs text-left gap-5 py-1">
-                <div className="flex flex-row items-center">
+                <div className="flex flex-row flex-1 items-center">
                     <p className="text-gray-600 pr-2">RAISED: </p>
                     <p className="mr-1">
                         {ethers.utils.formatEther(fund.amountCollected)}
@@ -101,11 +101,6 @@ const FundCard = ({ fund, i }: Props) => {
                         className="h-4 w-4 rounded-full border border-gray-900 object-cover"
                     />
                 </div>
-                {fund.active ? (
-                    <FaCircle fill="green" />
-                ) : (
-                    <FaCircle fill="red" />
-                )}
             </div>
             {fund.active ? (
                 <div className="flex items-center justify-left border border-gray-900 divide-x-[1px] divide-gray-900">
