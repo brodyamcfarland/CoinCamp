@@ -52,7 +52,7 @@ const CountDownTimer = ({ index }: Props) => {
             ) : (
                 <>
                     {timeEnded ? (
-                        <p className="text-red-500">Time has expired</p>
+                        <p className="text-red-500 text-sm py-[3px]">EXPIRED</p>
                     ) : (
                         <Countdown
                             date={Date.now() + Number(data) * 1000}
