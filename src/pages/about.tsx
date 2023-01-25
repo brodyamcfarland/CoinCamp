@@ -17,7 +17,7 @@ const about = () => {
                 <p className="text-lg font-bold uppercase tracking-[0.2rem]">
                     About
                 </p>
-                <p className="tracking-wide text-xs text-gray-500 py-4 px-10">
+                <p className="tracking-wide text-xs text-gray-500 py-4 px-10 text-left">
                     Coin Camp was designed to allow users to help others in a
                     decentralized fashion. Users will need to have the MetaMask
                     extension installed in their browser in order to interact
@@ -36,7 +36,7 @@ const about = () => {
                         alt="Avatar"
                         className="object-fit"
                     />
-                    <div className="flex flex-col justify-between py-16 text-left text-gray-400 px-4">
+                    <div className="hidden md:flex flex-col justify-between py-16 text-left text-gray-400 px-4">
                         <p className="tracking-wide text-xs py-4">
                             Users can interact with the smart contract by either
                             CREATING A FUND or DONATING to another fund.
@@ -57,7 +57,7 @@ const about = () => {
                         <span className="text-left text-sm">
                             Contract Address
                         </span>
-                        <span className="text-xs text-orange-600">
+                        <span className="text-xs text-orange-600 select-text">
                             0x0000000000000000000000
                         </span>
                     </div>

@@ -45,7 +45,7 @@ const Home: NextPage = () => {
                     the search bar or click on the navigation button{" "}
                     {<FaBars className="inline-block mb-[3px]" />}.
                 </p>
-                <div className="flex flex-row pt-10 gap-5">
+                <div className="flex flex-col md:flex-row pt-10 gap-5">
                     <Link
                         href="/create"
                         className="flex flex-row border items-center gap-2 border-gray-900 px-2 py-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/50 duration-300 ease-in-out hover:text-white"

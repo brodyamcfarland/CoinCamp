@@ -2,7 +2,6 @@ import { ethers } from "ethers";
 import { Line } from "rc-progress";
 import React, { useState, useRef } from "react";
 import Image from "next/image";
-import { FaCircle } from "react-icons/fa";
 import CountDownTimer from "./CountDownTimer";
 import toast from "react-hot-toast";
 import { useAddress, useContract } from "@thirdweb-dev/react";

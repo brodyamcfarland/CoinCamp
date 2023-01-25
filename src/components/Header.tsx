@@ -7,6 +7,8 @@ import { BiSearch } from "react-icons/bi";
 import Image from "next/image";
 import SideBarModal from "./SideBarModal";
 import Link from "next/link";
+import { ConnectWallet } from "@thirdweb-dev/react";
+import network from "../utils/network";
 
 const Header = () => {
     const [modalEnabled, setModalEnabled] = useState<boolean>(false);
@@ -26,8 +28,8 @@ const Header = () => {
     };
 
     return (
-        <header className="flex flex-row bg-black/40 h-12 py-1 px-2 md:px-10 lg:px-48 xl:px-80 items-center border-b border-gray-900 justify-between select-none">
-            <div className="flex items-center gap-6">
+        <header className="flex flex-row bg-black/40 h-12 py-1 px-2 md:px-10 lg:px-40 xl:px-72 items-center border-b border-gray-900 justify-between select-none">
+            <div className="flex items-center gap-2">
                 <FaBars
                     onClick={() => setModalEnabled(!modalEnabled)}
                     className="headerButton"
@@ -59,7 +61,7 @@ const Header = () => {
                             className="hover:text-white duration-300 text-xs md:text-sm tracking-widest flex flex-row gap-2 items-center justify-center"
                         >
                             <FaCircle fill="green" />{" "}
-                            {address.slice(0, 5) + "..." + address.slice(-4)}
+                            {address.slice(0, 7) + "..." + address.slice(-5)}
                         </button>
                         <Image
                             src={"/polygonLogo.png"}
@@ -70,13 +72,18 @@ const Header = () => {
                         />
                     </div>
                 ) : (
-                    <div className="flex items-center gap-3">
-                        <button
-                            onClick={connect}
-                            className="hover:text-white duration-300 text-xs md:text-sm tracking-widest"
-                        >
-                            CONNECT WALLET
-                        </button>
+                    <div className="flex items-center">
+                        <div className="scale-y-75 scale-x-90">
+                            <ConnectWallet
+                                colorMode="dark"
+                                accentColor="#8247E5"
+                                auth={{
+                                    loginOptions: {
+                                        chainId: network,
+                                    },
+                                }}
+                            />
+                        </div>
                         <AiOutlineUser className="h-7 w-7 p-1 rounded-full border border-gray-900 bg-slate-900" />
                     </div>
                 )}

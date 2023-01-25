@@ -4,6 +4,7 @@ import Head from "next/head";
 import FundCard from "../../components/FundCard";
 import { useAddress, useContract, useContractRead } from "@thirdweb-dev/react";
 import contractAddress from "../../contracts/contract";
+import { Triangle } from "react-loader-spinner";
 
 const discover = () => {
     const [allFunds, setAllFunds] = useState<any>([]);
@@ -30,11 +31,20 @@ const discover = () => {
                     transaction fees and fast processing times, supporting your
                     peers has never been easier.
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-y-auto scrollbar-thin h-full md:h-[40rem]">
-                    {allFunds?.map((fund: any, i: number) => (
-                        <FundCard fund={fund} i={i} key={i} />
-                    ))}
-                </div>
+                {allFunds ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-y-auto scrollbar-thin h-full md:h-[40rem]">
+                        {allFunds?.map((fund: any, i: number) => (
+                            <FundCard fund={fund} i={i} key={i} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex flex-col justify-center items-center pt-5 pb-10">
+                        <Triangle />
+                        <span className="py-8 text-emerald-500 animate-pulse tracking-widest">
+                            Loading your Funds...
+                        </span>
+                    </div>
+                )}
             </div>
         </Layout>
     );
