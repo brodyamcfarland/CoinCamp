@@ -28,7 +28,7 @@ const Header = () => {
     };
 
     return (
-        <header className="flex flex-row bg-black/40 h-12 py-1 px-2 md:px-10 lg:px-40 xl:px-72 items-center border-b border-gray-900 justify-between select-none">
+        <header className="flex flex-row bg-black h-12 py-1 px-2 md:px-10 lg:px-40 xl:px-72 items-center border-b border-gray-900 justify-between select-none shadow-md">
             <div className="flex items-center gap-2">
                 <FaBars
                     onClick={() => setModalEnabled(!modalEnabled)}

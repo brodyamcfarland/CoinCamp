@@ -57,7 +57,7 @@ const FundCard = ({ fund, i }: Props) => {
     };
     return (
         <div
-            className="flex flex-col gap-1 border border-gray-900 bg-black/50 px-4 py-2 hover:border-white duration-300"
+            className="flex flex-col gap-1 border border-gray-900 bg-black px-4 py-2 hover:border-white duration-300 shadow-md"
             key={i}
         >
             <p className="text-sm tracking-widest font-bold pb-2">

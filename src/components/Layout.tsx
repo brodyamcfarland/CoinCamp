@@ -8,7 +8,7 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
     return (
-        <div className="flex flex-col bg-gradient-to-tr from-gray-900 to-black min-h-screen text-gray-300">
+        <div className="flex flex-col bg-gray-800 min-h-screen text-gray-300">
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />

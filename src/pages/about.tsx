@@ -13,11 +13,11 @@ const about = () => {
                 <title>Coin Camp: About</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-2 max-w-7xl mx-auto p-2 py-4 text-center items-center justify-center tracking-wide select-none">
+            <div className="mainContainer">
                 <p className="text-lg font-bold uppercase tracking-[0.2rem]">
                     About
                 </p>
-                <p className="tracking-wide text-xs text-gray-500 py-4 px-10 text-left">
+                <p className="tracking-wide text-xs text-gray-400 py-4 px-10 text-left">
                     Coin Camp was designed to allow users to help others in a
                     decentralized fashion. Users will need to have the MetaMask
                     extension installed in their browser in order to interact
@@ -36,7 +36,7 @@ const about = () => {
                         alt="Avatar"
                         className="object-fit"
                     />
-                    <div className="hidden md:flex flex-col justify-between py-16 text-left text-gray-400 px-4">
+                    <div className="hidden md:flex flex-col justify-between py-16 text-left text-gray-300 px-4">
                         <p className="tracking-wide text-xs py-4">
                             Users can interact with the smart contract by either
                             CREATING A FUND or DONATING to another fund.
@@ -52,7 +52,7 @@ const about = () => {
                         </p>
                     </div>
                 </div>
-                <div className="flex flex-row items-center mt-6 gap-4">
+                <div className="flex flex-col md:flex-row items-center mt-6 gap-4">
                     <div className="flex flex-col gap-1 px-4 border items-center py-2 border-gray-900 bg-white/5">
                         <span className="text-left text-sm">
                             Contract Address
@@ -61,36 +61,41 @@ const about = () => {
                             0x08B3A131D1e34EcAEfB5D1C377E2614c9f9A744B
                         </span>
                     </div>
-                    <Link
-                        href="https://mumbai.polygonscan.com/address/0x08B3A131D1e34EcAEfB5D1C377E2614c9f9A744B"
-                        className="hover:text-purple-600 duration-300 flex flex-col items-center"
-                        target="_blank"
-                    >
-                        <BiQrScan size={26} className="hover:fill-purple-600" />
-                        <span className="text-[9px]">EXPLORER</span>
-                    </Link>
-                    <Link
-                        href="https://github.com/brodyamcfarland"
-                        className="hover:text-purple-600 duration-300 flex flex-col"
-                        target="_blank"
-                    >
-                        <AiOutlineGithub
-                            size={26}
-                            className="hover:fill-purple-600"
-                        />
-                        <span className="text-[9px]">DEV</span>
-                    </Link>
-                    <Link
-                        href="https://github.com/brodyamcfarland/CoinCamp"
-                        className="hover:text-purple-600 duration-300 flex flex-col items-center"
-                        target="_blank"
-                    >
-                        <AiOutlineGithub
-                            size={26}
-                            className="hover:fill-purple-600"
-                        />
-                        <span className="text-[9px]">SOURCE</span>
-                    </Link>
+                    <div className="flex gap-10 md:gap-4 justify-center items-center">
+                        <Link
+                            href="https://mumbai.polygonscan.com/address/0x08B3A131D1e34EcAEfB5D1C377E2614c9f9A744B"
+                            className="hover:text-purple-600 duration-300 flex flex-col items-center"
+                            target="_blank"
+                        >
+                            <BiQrScan
+                                size={26}
+                                className="hover:fill-purple-600"
+                            />
+                            <span className="text-[9px]">EXPLORER</span>
+                        </Link>
+                        <Link
+                            href="https://github.com/brodyamcfarland"
+                            className="hover:text-purple-600 duration-300 flex flex-col"
+                            target="_blank"
+                        >
+                            <AiOutlineGithub
+                                size={26}
+                                className="hover:fill-purple-600"
+                            />
+                            <span className="text-[9px]">DEV</span>
+                        </Link>
+                        <Link
+                            href="https://github.com/brodyamcfarland/CoinCamp"
+                            className="hover:text-purple-600 duration-300 flex flex-col items-center"
+                            target="_blank"
+                        >
+                            <AiOutlineGithub
+                                size={26}
+                                className="hover:fill-purple-600"
+                            />
+                            <span className="text-[9px]">SOURCE</span>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </Layout>

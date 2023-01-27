@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Layout from "../../components/Layout";
 import Head from "next/head";
 import FundCard from "../../components/FundCard";
-import { useAddress, useContract, useContractRead } from "@thirdweb-dev/react";
+import { useContract, useContractRead } from "@thirdweb-dev/react";
 import contractAddress from "../../contracts/contract";
 import { Triangle } from "react-loader-spinner";
 
@@ -21,11 +21,11 @@ const discover = () => {
                 <title>Coin Camp: Discover</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="h-full flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-2 max-w-7xl mx-auto p-2 py-4 text-center items-center justify-center tracking-wide select-none">
+            <div className="mainContainer">
                 <p className="text-lg font-bold uppercase tracking-[0.2rem]">
                     Discover
                 </p>
-                <p className="tracking-wide text-xs text-gray-500 py-4 px-10">
+                <p className="tracking-wide text-xs text-gray-400 py-4 px-10">
                     Welcome to the future of crowdfunding! Our platform allows
                     you to easily discover and support other users. With low
                     transaction fees and fast processing times, supporting your

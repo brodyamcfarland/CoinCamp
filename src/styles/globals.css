@@ -12,6 +12,9 @@
     .radioButtons {
         @apply text-emerald-500/80 bg-black border-gray-900 hover:border-gray-300 cursor-pointer duration-300 focus:ring-transparent ring-offset-transparent ring-black mr-3;
     }
+    .mainContainer {
+        @apply flex flex-col bg-gradient-to-b from-black to-black/50 border border-gray-900 mt-2 max-w-7xl mx-auto p-2 py-4 text-center items-center justify-center tracking-wide select-none shadow-md;
+    }
 }
 
 @layer base {

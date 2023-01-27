@@ -25,7 +25,7 @@ const Search = () => {
                 <title>Coin Camp: Search</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-2 max-w-7xl mx-auto p-2 py-4 text-center items-center justify-center tracking-wide select-none">
+            <div className="mainContainer">
                 <p className="text-lg font-bold uppercase tracking-[0.2rem]">
                     Search
                 </p>
