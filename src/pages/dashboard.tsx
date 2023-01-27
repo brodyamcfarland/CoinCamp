@@ -37,7 +37,7 @@ const dashboard = () => {
                                     {allFunds.filter(
                                         (fund: any) => fund.owner === address
                                     ).length > 0 ? (
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-y-auto scrollbar-thin h-full md:h-[40rem]">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-y-auto scrollbar-thin h-full md:max-h-[35rem]">
                                             {allFunds
                                                 .filter(
                                                     (fund: any) =>

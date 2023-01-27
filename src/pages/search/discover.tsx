@@ -21,7 +21,7 @@ const discover = () => {
                 <title>Coin Camp: Discover</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-2 max-w-7xl mx-auto p-2 py-4 text-center items-center justify-center tracking-wide select-none">
+            <div className="h-full flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-2 max-w-7xl mx-auto p-2 py-4 text-center items-center justify-center tracking-wide select-none">
                 <p className="text-lg font-bold uppercase tracking-[0.2rem]">
                     Discover
                 </p>
@@ -32,7 +32,7 @@ const discover = () => {
                     peers has never been easier.
                 </p>
                 {allFunds ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-y-auto scrollbar-thin h-full md:h-[40rem]">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-y-auto scrollbar-thin max-h-full md:max-h-[35rem]">
                         {allFunds?.map((fund: any, i: number) => (
                             <FundCard fund={fund} i={i} key={i} />
                         ))}

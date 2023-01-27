@@ -27,7 +27,7 @@ const Search = () => {
             </Head>
             <div className="flex flex-col bg-gradient-to-r from-black/10 to-black border border-gray-900 mt-2 max-w-7xl mx-auto p-2 py-4 text-center items-center justify-center tracking-wide select-none">
                 <p className="text-lg font-bold uppercase tracking-[0.2rem]">
-                    Discover
+                    Search
                 </p>
                 <p className="tracking-wide text-sm text-gray-500 py-4 px-10">
                     <span className="text-white">
@@ -43,7 +43,7 @@ const Search = () => {
                     <span className="text-white">{searchQuery}</span>
                 </p>
                 {allFunds ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-y-auto scrollbar-thin h-full md:h-[40rem]">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-y-auto scrollbar-thin h-full md:h-[35rem]">
                         {allFunds
                             ?.filter((fund: any) =>
                                 fund.title
