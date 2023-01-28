@@ -58,12 +58,12 @@ const about = () => {
                             Contract Address
                         </span>
                         <span className="text-xs text-orange-600 select-text">
-                            0x08B3A131D1e34EcAEfB5D1C377E2614c9f9A744B
+                            0xbE5698Ac395d2655aEEb53e11B7bfaDF5BF58A7D
                         </span>
                     </div>
                     <div className="flex gap-10 md:gap-4 justify-center items-center">
                         <Link
-                            href="https://mumbai.polygonscan.com/address/0x08B3A131D1e34EcAEfB5D1C377E2614c9f9A744B"
+                            href="https://mumbai.polygonscan.com/address/0xbE5698Ac395d2655aEEb53e11B7bfaDF5BF58A7D"
                             className="hover:text-purple-600 duration-300 flex flex-col items-center"
                             target="_blank"
                         >
