@@ -50,7 +50,7 @@ const Search = () => {
                                     .toLowerCase()
                                     .includes(`${searchQuery}`)
                             )
-                            .map((filteredFund: any, filteredI: number) => (
+                            .map((filteredFund: any) => (
                                 <FundCard
                                     fund={filteredFund}
                                     key={filteredFund.id}

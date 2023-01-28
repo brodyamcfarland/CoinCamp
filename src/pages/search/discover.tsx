@@ -35,7 +35,7 @@ const discover = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 overflow-y-auto scrollbar-thin max-h-full md:max-h-[35rem]">
                         {allFunds
                             ?.map((fund: any, i: number) => (
-                                <FundCard fund={fund} i={i} key={i} />
+                                <FundCard fund={fund} key={fund.id} />
                             ))
                             .reverse()}
                     </div>
