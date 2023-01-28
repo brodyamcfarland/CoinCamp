@@ -10,10 +10,9 @@ import { AiOutlineCopy, AiOutlinePlusCircle } from "react-icons/ai";
 
 interface Props {
     fund: any;
-    i: number;
 }
 
-const FundCard = ({ fund, i }: Props) => {
+const FundCard = ({ fund }: Props) => {
     const [donation, setDonation] = useState<number>(0);
     const { contract } = useContract(contractAddress);
     const address = useAddress();
@@ -47,6 +46,7 @@ const FundCard = ({ fund, i }: Props) => {
                 gasLimit: 1000000,
                 value: ethers.utils.parseEther(donation.toString()),
             });
+            toast.dismiss(toastLoading);
             toast.success("Thank you! Your donation has been processed!");
         } catch (err) {
             toast.dismiss(toastLoading);
@@ -58,7 +58,7 @@ const FundCard = ({ fund, i }: Props) => {
     return (
         <div
             className="flex flex-col gap-1 border border-gray-900 bg-black px-4 py-2 hover:border-white duration-300 shadow-md"
-            key={i}
+            key={fund.id}
         >
             <p className="text-sm tracking-widest font-bold pb-2">
                 {fund.title}
@@ -107,7 +107,7 @@ const FundCard = ({ fund, i }: Props) => {
                         Time Left
                     </p>
                     <div className="px-2 bg-gradient-to-r from-white/5 to-transparent">
-                        <CountDownTimer index={i} />
+                        <CountDownTimer fundId={fund.id} />
                     </div>
                 </div>
             ) : (
@@ -169,7 +169,7 @@ const FundCard = ({ fund, i }: Props) => {
                         </div>
                     </div>
                     <button
-                        onClick={() => sendDonation(i.toString())}
+                        onClick={() => sendDonation(fund.id.toString())}
                         className="px-2 gap-2 flex items-center justify-center text-xs text-gray-500 border-gray-900 border hover:to-emerald-500/50 hover:from-emerald-500/30 bg-gradient-to-tl from-transparent to-emerald-500/20  duration-300 hover:text-white hover:border-white"
                     >
                         <AiOutlinePlusCircle size={18} />

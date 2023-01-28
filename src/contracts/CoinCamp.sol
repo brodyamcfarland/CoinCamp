@@ -12,6 +12,7 @@ contract CoinCamp {
         address[] donators;
         uint256[] donations;
         bool active;
+        uint256 id;
     }
 
     mapping(uint256 => Campaign) public campaigns;
@@ -30,6 +31,7 @@ contract CoinCamp {
         campaign.deadline = _deadline;
         campaign.amountCollected = 0;
         campaign.active = true;
+        campaign.id = numberOfCampaigns;
 
         numberOfCampaigns++;
 

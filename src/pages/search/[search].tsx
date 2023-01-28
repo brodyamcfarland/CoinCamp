@@ -53,8 +53,7 @@ const Search = () => {
                             .map((filteredFund: any, filteredI: number) => (
                                 <FundCard
                                     fund={filteredFund}
-                                    i={filteredI}
-                                    key={filteredI}
+                                    key={filteredFund.id}
                                 />
                             ))}
                     </div>

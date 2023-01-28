@@ -5,7 +5,7 @@ import contractAddress from "../contracts/contract";
 import { ThreeDots } from "react-loader-spinner";
 
 interface Props {
-    index: number;
+    fundId: number;
 }
 
 interface RenderProps {
@@ -15,13 +15,13 @@ interface RenderProps {
     seconds: number;
 }
 
-const CountDownTimer = ({ index }: Props) => {
+const CountDownTimer = ({ fundId }: Props) => {
     const { contract } = useContract(contractAddress);
     const {
         data,
         isLoading: isLoadingExpiration,
         error: timeEnded,
-    } = useContractRead(contract, "getTimeLeft", index);
+    } = useContractRead(contract, "getTimeLeft", fundId);
     const renderer = ({ days, hours, minutes, seconds }: RenderProps) => {
         return (
             <div className="flex flex-row gap-2 divide-x-[1px] divide-gray-900">

@@ -8,7 +8,6 @@ import {
     useContractWrite,
     useContractRead,
     useNetwork,
-    useNetworkMismatch,
 } from "@thirdweb-dev/react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
@@ -94,6 +93,8 @@ const create = () => {
             ]);
             console.info("Fund has successfully been created.", data);
             toast.success("Your Fund has successfully been created!");
+            toast.dismiss(toastLoading);
+            router.push("/dashboard");
         } catch (err) {
             console.error(
                 "Something went wrong! Please check parameters and try again. Error: ",

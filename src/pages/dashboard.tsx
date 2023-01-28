@@ -11,6 +11,7 @@ const dashboard = () => {
     const { contract } = useContract(contractAddress);
     const { data: getCampaigns } = useContractRead(contract, "getCampaigns");
     const address = useAddress();
+
     useEffect(() => {
         setAllFunds(getCampaigns);
     }, [getCampaigns]);
@@ -43,13 +44,13 @@ const dashboard = () => {
                                                 (fund: any) =>
                                                     fund.owner === address
                                             )
-                                            ?.map((fund: any, i: number) => (
+                                            .map((fund: any) => (
                                                 <FundCard
                                                     fund={fund}
-                                                    i={i}
-                                                    key={i}
+                                                    key={fund.id}
                                                 />
-                                            ))}
+                                            ))
+                                            .reverse()}
                                     </div>
                                 ) : (
                                     <p>No funds found for this address.</p>
